@@ -223,6 +223,22 @@ final class VoiceFlowUITests: XCTestCase {
         XCTAssertTrue(waitForRecordingState(.ready, in: app, timeout: 15))
     }
 
+    func testTranscriptModeToolbarToggleSwitchesMode() throws {
+        let app = launchVoiceFlowApp(
+            language: "en",
+            locale: "en_US",
+            extraArguments: ["-uiTestMode", "-uiTestSavedToken"]
+        )
+        let mode = app.buttons["record.transcriptModeButton"]
+        XCTAssertTrue(mode.waitForExistence(timeout: VoiceFlowUITestSuite.defaultTimeout))
+
+        XCTAssertTrue(waitForValue(of: mode, containing: "Replace"))
+        mode.tap()
+        XCTAssertTrue(waitForValue(of: mode, containing: "Append"))
+        mode.tap()
+        XCTAssertTrue(waitForValue(of: mode, containing: "Replace"))
+    }
+
     func testDeepLinkRecordStartsMockRecordingFlow() throws {
         let app = launchVoiceFlowApp(
             language: "en",

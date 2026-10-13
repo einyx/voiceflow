@@ -14,8 +14,6 @@
 "record.transcriptMode.replace" = "替换";
 "record.transcriptMode.append" = "追加";
 "record.transcriptMode.switchHint" = "切换到%@";
-"record.transcriptMode.replace.active" = "替换模式";
-"record.transcriptMode.append.active" = "追加模式";
 "record.undo" = "撤销";
 "record.redo" = "重做";
 "record.clear" = "清空转写";

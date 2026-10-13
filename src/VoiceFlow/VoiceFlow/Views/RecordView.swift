@@ -13,8 +13,6 @@ struct RecordView: View {
     @State private var copyFeedbackTask: Task<Void, Never>?
     @State private var showCopyCheckmark = false
     @State private var isEditingTranscript = false
-    @State private var modeFeedbackTask: Task<Void, Never>?
-    @State private var modeFeedbackText: String?
 
     var body: some View {
         ZStack {
@@ -185,13 +183,6 @@ struct RecordView: View {
                 copyButton
                     .opacity(showDocumentActions ? 1 : 0)
                     .allowsHitTesting(showDocumentActions)
-            }
-            if let modeFeedbackText {
-                Text(modeFeedbackText)
-                    .font(DesignTokens.Typography.captionSub)
-                    .foregroundStyle(DesignTokens.Palette.textSecondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .accessibilityIdentifier("record.transcriptModeFeedback")
             }
             if case .failed(let messageKey) = appState.customActionState {
                 Text(localized(messageKey))
@@ -420,24 +411,6 @@ struct RecordView: View {
     private func toggleTranscriptMode() {
         guard appState.canChangeTranscriptMode else { return }
         appState.transcriptMode = appState.transcriptMode == .replace ? .append : .replace
-        showModeFeedback()
-    }
-
-    /// Transient confirmation of the newly selected mode. The control shows a
-    /// single glyph, so the option you are switching to is never on screen;
-    /// the caption names it briefly to teach what just changed.
-    private func showModeFeedback() {
-        let modeKey = appState.transcriptMode == .append
-            ? "record.transcriptMode.append.active"
-            : "record.transcriptMode.replace.active"
-        modeFeedbackText = localized(modeKey)
-        modeFeedbackTask?.cancel()
-        modeFeedbackTask = Task { @MainActor in
-            try? await Task.sleep(for: .seconds(1.6))
-            if !Task.isCancelled {
-                modeFeedbackText = nil
-            }
-        }
     }
 
     // MARK: - Transcript history navigation (mode-aware)

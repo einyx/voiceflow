@@ -10,6 +10,7 @@ voiceflow_test_ui_only_testing_args() {
         "VoiceFlowUITests/VoiceFlowUITests/testEnglishAppShell"
         "VoiceFlowUITests/VoiceFlowUITests/testMockStreamingRecordingUpdatesTranscript"
         "VoiceFlowUITests/VoiceFlowUITests/testTokenCanBeSavedReplacedAndCleared"
+        "VoiceFlowUITests/VoiceFlowUITests/testTranscriptModeToolbarToggleSwitchesMode"
       )
       ;;
     full)

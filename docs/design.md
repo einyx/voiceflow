@@ -473,7 +473,7 @@ struct StatusText: View {
 
 **可见性**：清除/复制/自定义动作在文本为空时照旧淡出；模式开关常驻，不参与淡出。空页面上 append/replace 本无差别（没有可追加的文档），但常驻让"当前处于哪种模式"在按下 Record 前始终可读，符合用户要求。
 
-**切换反馈**：单图标只显示当前态，看不到另一个选项。tap 后在工具条第二行闪一条瞬时文案（Replace mode / Append mode，约 1.6s）补发现性；accessibility label 报当前模式、hint 报"切换到 <另一模式>"。
+**切换反馈**：不另加文案。tap 即刻翻转图标（`arrow.left.arrow.right` ↔ `text.append`），append 态再染琥珀色，图标变化本身就是反馈；accessibility label 固定为「转写模式」、value 报当前模式、hint 报「切换到 <另一模式>」。（迭代：曾在工具条第二行加过约 1.6s 的瞬时文案补发现性，真机实测它在插入/移除时把整行图标顶得上下跳，且连点时的反馈读起来像"没生效/有 bug"，遂移除。）
 
 **禁用**：录音/转写中或 Custom Action 运行时按 `canChangeTranscriptMode` 禁用，降到 `text.tertiary` + 0.6 opacity。模式在按 Start 时锁定，录音中切换只影响下一次。
 
