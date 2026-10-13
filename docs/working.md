@@ -20,6 +20,18 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 ## Changelog
 
+### 2026-10-13 (转写模式开关搬上工具条)
+
+- 把 append/replace 模式开关从 Record 屏 ⋯ 菜单的 segmented Picker 移到转写区工具条，做成常驻单图标开关，放清除/复制左侧（`RecordView.transcriptModeButton`，identifier `record.transcriptModeButton`）。默认 replace 显示 `arrow.left.arrow.right`（`text.secondary`）；切到 append 显示 `text.append`（accent 琥珀），点按翻转，当前模式始终可见。
+- 背景：开关此前按"切换低频、保持 Record 屏干净"放进 ⋯ 菜单；用户反馈实际高频使用，要求更显眼、常驻。属用户主动推翻旧决策。
+- 工具条可见性拆分：文本为空时自定义动作/清除/复制照旧淡出（opacity 0 + `allowsHitTesting(false)`），模式开关**不参与淡出**，空页面也常驻（模式指示而非文档动作）。原挂在整条 VStack 上的 opacity/hitTesting 下放到三个文档动作各自。
+- 切换反馈：tap 后在工具条第二行闪一条瞬时文案（`record.transcriptMode.replace.active` / `.append.active`，约 1.6s，view-local Task），补"单图标看不到另一个选项"的发现性缺口。
+- 图标选型（2026-10-13 核实 SF Symbols）：`text.replace` 不存在，replace 借"交换"语义用 `arrow.left.arrow.right`；避开 `arrow.clockwise`（重发已用）与 `arrow.uturn.*`（append 模式撤销/重做已用）；append 用 `text.append`（字面"追加文本"）。
+- 新增本地化 key（en + zh-Hans）：`record.transcriptMode.switchHint`（accessibility hint，`%@` = 目标模式名）、`.replace.active` / `.append.active`。
+- 验证：`scripts/test_unit.sh` 146 tests 全过；`scripts/test_ui_smoke.sh` 3 tests 全过（含 Record 屏渲染）。空态截图确认模式图标常驻，录音态确认禁用降色。注意：需先清 `.voiceflow/DerivedData` 才跑通——旧缓存残留一份 `VoiceFlowKit_*_PackageProduct.framework`，与新的 `VoiceFlowKit.framework` 同 identifier 导致模拟器安装失败（环境问题，非代码）。
+- 二轮（deepseek code + privacy 评审后）采纳的修正：自定义动作失败行随空态淡出（保持改动前观感，避免 error 停在空页面）；模式改用 `accessibilityValue`（label 固定为「转写模式」，value = 当前模式），禁用态不播报切换 hint。评审结论：无 blocker / major，隐私无不可公开内容。
+- 待用户真机确认：空页面只有模式图标时会悬浮在工具条偏中位置（隐藏的清除/复制仍占布局），观感是否可接受。
+
 ### 2026-09-29 (UI 测试卡死排查 + simulator preflight)
 
 - 现象：UI 测试单次 10+ 分钟无结果。日志签名：`Restarting after unexpected exit, crash, or test timeout` + `Failure collecting diagnostics from simulator: Timed out after 600.0 seconds`。

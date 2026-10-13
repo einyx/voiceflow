@@ -457,3 +457,24 @@ struct StatusText: View {
 1. `AutoScrollingTextEditor` 的 `Coordinator` 加 `textViewDidBeginEditing` / `textViewDidEndEditing`，通过 `Binding<Bool>` 把 isEditing 传回 RecordView（`@State private var isEditingTranscript = false`）。
 2. RecordView 顶部基于 `isEditingTranscript` 控制：波形用 `.frame(height: isEditing ? 0 : 80)` + `.opacity(isEditing ? 0 : 1)`；计时器用三元切换 `Typography.timer` / `Typography.captionSub`；顶部 spacer 用 `isEditing ? Spacing.s : Spacing.xxl`。
 3. transcriptArea 的 `.frame(maxHeight: .infinity)` 保持，它是弹性吸收者，重排后多出的空间自动归它。
+
+## 转写模式开关上工具条（修订 · 2026-10-13）
+
+**背景**：转写模式（Replace / Append）开关原在 Record 屏 ⋯ 菜单顶部，做成分段控件。设计时的假设是"切换低频，保持 Record 屏干净"，所以不放主屏常驻标签。用户反馈实际高频使用，要求更显眼、常驻。本修订推翻该假设，把开关移到转写区工具条常驻。
+
+**位置**：转写区工具条右侧，清除/复制按钮的左侧（`[✨ 动作] … [模式] [清除] [复制]`）。仍属文本表面、不属录音 transport，Record 胶囊与历史行布局不动。
+
+**图标**：单图标始终显示当前模式。
+
+- Replace（默认、安静态）：`arrow.left.arrow.right`，`text.secondary`，与清除/复制同灰度。
+- Append（非默认、累加态）：`text.append`，`accent` 琥珀——非默认态用高亮色提示"处于特殊模式"。
+
+选型依据（2026-10-13 核实 SF Symbols）：`text.replace` 不存在，replace 借"交换"语义；避开 `arrow.clockwise`（重发已用）与 `arrow.uturn.*`（append 模式撤销/重做已用）；append 选 `text.append` 因其字面就是"追加文本"。备选：replace 可用 `rectangle.2.swap`（更直译"替换"但偏碎）；append 可用 `text.badge.plus`（plus 徽章小尺寸最清楚，但语义偏"新增"）。
+
+**可见性**：清除/复制/自定义动作在文本为空时照旧淡出；模式开关常驻，不参与淡出。空页面上 append/replace 本无差别（没有可追加的文档），但常驻让"当前处于哪种模式"在按下 Record 前始终可读，符合用户要求。
+
+**切换反馈**：单图标只显示当前态，看不到另一个选项。tap 后在工具条第二行闪一条瞬时文案（Replace mode / Append mode，约 1.6s）补发现性；accessibility label 报当前模式、hint 报"切换到 <另一模式>"。
+
+**禁用**：录音/转写中或 Custom Action 运行时按 `canChangeTranscriptMode` 禁用，降到 `text.tertiary` + 0.6 opacity。模式在按 Start 时锁定，录音中切换只影响下一次。
+
+**⋯ 菜单**：移除原来的 Transcript Mode 分段控件，保持单一控件。

@@ -13,6 +13,8 @@ struct RecordView: View {
     @State private var copyFeedbackTask: Task<Void, Never>?
     @State private var showCopyCheckmark = false
     @State private var isEditingTranscript = false
+    @State private var modeFeedbackTask: Task<Void, Never>?
+    @State private var modeFeedbackText: String?
 
     var body: some View {
         ZStack {
@@ -158,30 +160,53 @@ struct RecordView: View {
         .frame(maxHeight: .infinity)
     }
 
-    /// Compact output-action toolbar attached to the transcript surface:
-    /// custom action on the left, copy on the right. Both are muted gray so
-    /// they never compete with the Record capsule below. Record's center axis
-    /// is untouched — this row belongs to the text, not the transport.
+    /// Transcript toolbar attached to the text surface: custom action on the
+    /// left; on the right the transcript-mode toggle sits leftmost of the
+    /// document actions (clear, copy). Everything stays muted gray except the
+    /// mode toggle when append is active, so nothing competes with the Record
+    /// capsule below.
+    ///
+    /// The document actions only make sense with a transcript on screen, so
+    /// they fade out on an empty page. The mode toggle is a mode indicator,
+    /// not a document action: it stays visible so the current mode is always
+    /// readable before recording, even on a fresh, empty transcript.
     private var transcriptToolbar: some View {
-        VStack(spacing: DesignTokens.Spacing.xs) {
+        let showDocumentActions = appState.canCopyTranscript
+        return VStack(spacing: DesignTokens.Spacing.xs) {
             HStack {
                 customActionButton
+                    .opacity(showDocumentActions ? 1 : 0)
+                    .allowsHitTesting(showDocumentActions)
                 Spacer()
+                transcriptModeButton
                 trashButton
+                    .opacity(showDocumentActions ? 1 : 0)
+                    .allowsHitTesting(showDocumentActions)
                 copyButton
+                    .opacity(showDocumentActions ? 1 : 0)
+                    .allowsHitTesting(showDocumentActions)
+            }
+            if let modeFeedbackText {
+                Text(modeFeedbackText)
+                    .font(DesignTokens.Typography.captionSub)
+                    .foregroundStyle(DesignTokens.Palette.textSecondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityIdentifier("record.transcriptModeFeedback")
             }
             if case .failed(let messageKey) = appState.customActionState {
                 Text(localized(messageKey))
                     .font(DesignTokens.Typography.captionSub)
                     .foregroundStyle(DesignTokens.Palette.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    // The custom-action result is a document-action status, so
+                    // it fades with the other document actions on an empty
+                    // page (same as before the toolbar's fade was scoped down).
+                    .opacity(showDocumentActions ? 1 : 0)
                     .accessibilityIdentifier("record.customActionError")
             }
         }
         .padding(.horizontal, DesignTokens.Spacing.xl)
         .padding(.top, DesignTokens.Spacing.s)
-        .opacity(appState.canCopyTranscript ? 1 : 0)
-        .allowsHitTesting(appState.canCopyTranscript)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("record.transcriptToolbar")
     }
@@ -286,8 +311,6 @@ struct RecordView: View {
             .accessibilityIdentifier("record.historyPreviousButton")
 
             Menu {
-                transcriptModeToggle
-
                 Button(action: { Task { await appState.sendTranscriptToOpenCode() } }) {
                     Label {
                         Text(openCodeMenuLabel)
@@ -338,33 +361,83 @@ struct RecordView: View {
         }
     }
 
-    /// Session-scoped transcript mode switch, rendered inside the ⋯ menu
-    /// as a segmented control so the active mode is visible at a glance
-    /// (the selected segment is filled) rather than two rows to diff.
-    /// Hidden from the main screen: the Record screen stays clean and the
-    /// mode rarely changes within a session. Disabled while a recording is
-    /// in flight: the mode is captured when the recording starts, so
-    /// switching mid-recording would not affect the in-flight chunk anyway.
-    private var transcriptModeToggle: some View {
-        Section {
-            Picker(
-                selection: $appState.transcriptMode,
-                label: Text(localized("record.transcriptMode.title"))
-            ) {
-                ForEach(TranscriptMode.allCases, id: \.self) { mode in
-                    Text(localized(transcriptModeLabelKey(for: mode))).tag(mode)
-                }
-            }
-            .pickerStyle(.segmented)
-            .disabled(!appState.canChangeTranscriptMode)
-            .accessibilityIdentifier("record.transcriptModeToggle")
-        } header: {
-            Text(localized("record.transcriptMode.title"))
+    /// Transcript-mode toggle, pinned to the left of the clear/copy buttons
+    /// in the transcript toolbar. A single icon always shows the current
+    /// mode — replace (each recording overwrites the page) or append (new
+    /// text accumulates below the document) — so the mode is readable at a
+    /// glance without opening a menu. Tapping flips it. Disabled while a
+    /// recording is in flight or a custom action runs (the mode is captured
+    /// at Start, so a mid-flight switch would not affect the in-flight chunk
+    /// anyway); `canChangeTranscriptMode` gates both the action and the
+    /// disabled styling.
+    private var transcriptModeButton: some View {
+        let isAppend = appState.transcriptMode == .append
+        let isEnabled = appState.canChangeTranscriptMode
+        return Button(action: toggleTranscriptMode) {
+            Image(systemName: isAppend ? "text.append" : "arrow.left.arrow.right")
+                .font(.system(size: DesignTokens.Sizing.ghostIcon, weight: .regular))
+                .frame(width: 44, height: 44)
+                .foregroundStyle(modeIconColor(isAppend: isAppend, isEnabled: isEnabled))
+                .opacity(isEnabled ? 1.0 : 0.6)
+                .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
+        .disabled(!isEnabled)
+        .accessibilityIdentifier("record.transcriptModeButton")
+        .accessibilityLabel(Text(localized("record.transcriptMode.title")))
+        .accessibilityValue(Text(modeAccessibilityValue))
+        .accessibilityHint(Text(isEnabled ? modeSwitchHint : ""))
     }
 
-    private func transcriptModeLabelKey(for mode: TranscriptMode) -> String {
-        mode == .replace ? "record.transcriptMode.replace" : "record.transcriptMode.append"
+    /// Replace is the default, quiet state, so its glyph rides at the same
+    /// `textSecondary` weight as clear/copy. Append is the non-default
+    /// "accumulate" state, so it takes the amber accent to signal that a
+    /// special mode is active. Disabled drops to `textTertiary`.
+    private func modeIconColor(isAppend: Bool, isEnabled: Bool) -> Color {
+        guard isEnabled else {
+            return DesignTokens.Palette.textTertiary.color(for: colorScheme)
+        }
+        return isAppend
+            ? DesignTokens.Palette.accent
+            : DesignTokens.Palette.textSecondary.color(for: colorScheme)
+    }
+
+    private var modeAccessibilityValue: String {
+        localized(
+            appState.transcriptMode == .append
+                ? "record.transcriptMode.append"
+                : "record.transcriptMode.replace"
+        )
+    }
+
+    private var modeSwitchHint: String {
+        let otherKey = appState.transcriptMode == .append
+            ? "record.transcriptMode.replace"
+            : "record.transcriptMode.append"
+        return String(format: localized("record.transcriptMode.switchHint"), localized(otherKey))
+    }
+
+    private func toggleTranscriptMode() {
+        guard appState.canChangeTranscriptMode else { return }
+        appState.transcriptMode = appState.transcriptMode == .replace ? .append : .replace
+        showModeFeedback()
+    }
+
+    /// Transient confirmation of the newly selected mode. The control shows a
+    /// single glyph, so the option you are switching to is never on screen;
+    /// the caption names it briefly to teach what just changed.
+    private func showModeFeedback() {
+        let modeKey = appState.transcriptMode == .append
+            ? "record.transcriptMode.append.active"
+            : "record.transcriptMode.replace.active"
+        modeFeedbackText = localized(modeKey)
+        modeFeedbackTask?.cancel()
+        modeFeedbackTask = Task { @MainActor in
+            try? await Task.sleep(for: .seconds(1.6))
+            if !Task.isCancelled {
+                modeFeedbackText = nil
+            }
+        }
     }
 
     // MARK: - Transcript history navigation (mode-aware)

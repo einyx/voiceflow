@@ -13,6 +13,9 @@
 "record.transcriptMode.title" = "Transcript Mode";
 "record.transcriptMode.replace" = "Replace";
 "record.transcriptMode.append" = "Append";
+"record.transcriptMode.switchHint" = "Switch to %@";
+"record.transcriptMode.replace.active" = "Replace mode";
+"record.transcriptMode.append.active" = "Append mode";
 "record.undo" = "Undo";
 "record.redo" = "Redo";
 "record.clear" = "Clear Transcript";

@@ -302,7 +302,7 @@ ready -> (start again) -> requestingPermission -> ...
 
 **状态**（`AppState`，全部内存态）：
 
-- `transcriptMode`（`.replace` 默认 / `.append`）：session 级，不落 UserDefaults；⋯ 菜单切换，`canChangeTranscriptMode` 仅在 idle/ready 且 Custom Action 未运行时为真。
+- `transcriptMode`（`.replace` 默认 / `.append`）：session 级，不落 UserDefaults；转写区工具条的模式开关切换，`canChangeTranscriptMode` 仅在 idle/ready 且 Custom Action 未运行时为真。
 - `activeTranscriptMode`：按 Start（或按 resend）时捕获，录音中切换不影响本次合并。
 - `composeBase`：块在飞时冻结的基座。replace 恒为空；append 新录音 = 整个文档，append 重发 = 文档去掉最后一段（`lastChunkLength` 边界；边界丢失时退化为末尾追加）。
 - `chunkInFlight`：块在飞标记。`applyStreamedTranscript` 以此为前置（结算后的陈旧帧一律忽略）。
@@ -322,7 +322,7 @@ ready -> (start again) -> requestingPermission -> ...
 
 **垃圾桶按钮**：`clearTranscriptToHistory()` = `transcriptHistory.add(transcript)` + 清空，`canClearTranscript`（非空 + idle/ready + 无 Custom Action + 无在飞块）。空视图恢复规则：transcript 为空且历史非空时，左箭头恢复 `currentEntry`（游标所在条目）而非继续后退；手动全选删除同样适用。`TranscriptHistory.add` 存**原文**（trim 只用于空判断与去重）：垃圾桶把历史变成撤销目标，恢复必须逐字节一致（含末尾换行）。
 
-**UI 入口**：⋯ 菜单顶部「Transcript Mode / 转写模式」Section，内为 segmented Picker（Replace | Append，选中段高亮；录音中/转写中禁用，与策略锁定一致）。用户实测反馈后从 checkmark 双行改为 segmented——两行打勾需要比对才能读出当前模式，segmented 当前模式一眼可见；主屏不放常驻模式标签（session 级、切换低频，保持 Record 屏干净）。左右箭头随模式变图标与标签：append = `arrow.uturn.backward/forward` + Undo / Redo（文档撤销/重做框架），replace = `chevron.left/right` + History；accessibility identifier 保持 `record.historyPreviousButton` / `record.historyNextButton` 不变（UI test 引用）。工具条 Copy 左边 trash 幽灵按钮。本地化 key：`record.transcriptMode.title/.replace/.append`、`record.undo/.redo`、`record.clear`（en + zh-Hans）。
+**UI 入口**：转写区工具条右侧、清除/复制左侧的常驻模式开关（`RecordView.transcriptModeButton`，identifier `record.transcriptModeButton`）。单图标显示当前模式：replace = `arrow.left.arrow.right`（`text.secondary`），append = `text.append`（accent 琥珀，非默认态高亮）；tap 翻转，切换时工具条第二行闪一条瞬时文案（`record.transcriptMode.replace.active` / `.append.active`，约 1.6s，view-local Task）以说明切到了哪个模式。`canChangeTranscriptMode` 同时控制动作与禁用样式（录音/转写中或 Custom Action 运行时禁用、降为 `text.tertiary` + 0.6 opacity）。工具条的自定义动作/清除/复制在文本为空时淡出（opacity 0 + `allowsHitTesting(false)`），自定义动作失败行随之淡出（保持改动前的观感），但模式开关**不参与淡出**——它是模式指示而非文档动作，空页面也要能读到当前模式（原挂在整条 VStack 上的 opacity/hitTesting 因此下放到三个文档动作各自）。瞬时反馈文案 identifier `record.transcriptModeFeedback`。（2026-10-13 从 ⋯ 菜单的 segmented Picker 迁到工具条常驻图标，原 segmented 见 git 历史。）左右箭头随模式变图标与标签：append = `arrow.uturn.backward/forward` + Undo / Redo（文档撤销/重做框架），replace = `chevron.left/right` + History；accessibility identifier 保持 `record.historyPreviousButton` / `record.historyNextButton` 不变（UI test 引用）。工具条 Copy 左边 trash 幽灵按钮。本地化 key：`record.transcriptMode.title/.replace/.append`、新增 `record.transcriptMode.switchHint`（accessibility hint，`%@` = 目标模式名）、`record.transcriptMode.replace.active` / `record.transcriptMode.append.active`（瞬时反馈文案）、`record.undo/.redo`、`record.clear`（en + zh-Hans）。
 
 **测试**：`src/VoiceFlow/VoiceFlowTests/TranscriptModeTests.swift` 覆盖 compose 分隔规则、模式默认与 session 语义、Start 锁定、全链路 append/replace 合并、流式快照只动块区、陈旧帧忽略、失败 settle（有/无可见 partial）、resend 替换尾段/失败恢复/边界丢失退化、垃圾桶 + 空视图恢复。
 
