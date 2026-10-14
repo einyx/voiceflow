@@ -64,6 +64,21 @@ extension XCTestCase {
         return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 
+    func waitForLabel(
+        of element: XCUIElement,
+        containing text: String,
+        timeout: TimeInterval = VoiceFlowUITestSuite.defaultTimeout
+    ) -> Bool {
+        // XCTest's existence wait plus predicate polling can spend two
+        // seconds before its first label check, missing a two-second toast.
+        let deadline = Date().addingTimeInterval(timeout)
+        repeat {
+            if element.exists, element.label.contains(text) { return true }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.05))
+        } while Date() < deadline
+        return false
+    }
+
     func openSettings(in app: XCUIApplication, label: String) {
         for candidate in ["tab.settings", label, "Settings", "设置"] {
             let button = app.tabBars.buttons[candidate]

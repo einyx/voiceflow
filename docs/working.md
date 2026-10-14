@@ -20,6 +20,33 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 ## Changelog
 
+### 2026-10-13 (工具条全部常驻与空文本反馈)
+
+- 按用户真机反馈移除空页面上的按钮淡出：Polish、模式、清除、复制常驻。空复制写空字符串；空删除保持历史不动；空 Polish 在 view 层返回并显示提示，不读 token、不创建请求。
+- 模式 toast 泛化为工具条反馈，全部复用已有状态行的两秒提示；自定义动作运行/失败状态由 AppState 派生，取消有反馈，清空文档后清理旧动作错误。
+- 验证：147 个单测通过，新增空操作测试覆盖剪贴板与历史/请求；空工具条 UI 测试通过（完整含增量构建约 25s，测试运行约 10s）；模式切换 UI 回归通过（复用构建，运行约 11s）。各按钮 frame 不变。无真实网络调用。
+
+### 2026-10-13 (状态行 toast 验收与定向 UI 测试提速)
+
+- 清理接手时的 `MARKER-DIRECT` / `MARKER-PLS` 诊断文本、按钮 accessibilityValue 临时改动和测试全树扫描。恢复双语状态行 toast，显示两秒；连续切换重置定时器，页面离开时取消。toast 覆盖旧的复制/保存结果提示，但不盖住录音、转写或 OpenCode 发送过程。
+- 失败日志的确定证据：点击在 7.18s，旧测试直到 9.60s 才首次检查 toast，已错过显示窗口。此前关于“状态没设置”“缓存损坏”的反复推断没有被这些日志证明。修正测试为立即读取短时提示，避免先等存在再等 predicate 的累积延迟。
+- 新增 `scripts/test_ui_focused.sh`：仅测指定方法，增量编译成功才运行，使用明确 `.xctestrun`，禁用失败后的完整诊断采集。实测完整命令 24s，其中编译 8s、UI 运行 15s；另一轮增量编译约 3s、UI 运行 16s。无需清 DerivedData。
+- 定向测试通过：Replace→Append→Replace、两种模式确认文字、恢复 Ready、切换前后按钮 frame 完全一致。`git diff --check` 通过。
+
+### 2026-10-13 (转写模式开关搬上工具条)
+
+- 把 append/replace 模式开关从 Record 屏 ⋯ 菜单的 segmented Picker 移到转写区工具条，做成常驻单图标开关，放清除/复制左侧（`RecordView.transcriptModeButton`，identifier `record.transcriptModeButton`）。默认 replace 显示 `arrow.left.arrow.right`（`text.secondary`）；切到 append 显示 `text.append`（accent 琥珀），点按翻转，当前模式始终可见。
+- 背景：开关此前按"切换低频、保持 Record 屏干净"放进 ⋯ 菜单；用户反馈实际高频使用，要求更显眼、常驻。属用户主动推翻旧决策。
+- 工具条可见性拆分：文本为空时自定义动作/清除/复制照旧淡出（opacity 0 + `allowsHitTesting(false)`），模式开关**不参与淡出**，空页面也常驻（模式指示而非文档动作）。原挂在整条 VStack 上的 opacity/hitTesting 下放到三个文档动作各自。
+- 切换反馈：不另加文案。tap 即刻翻转图标、append 态染琥珀色，图标变化即反馈（迭代见下方三轮）。
+- 图标选型（2026-10-13 核实 SF Symbols）：`text.replace` 不存在，replace 借"交换"语义用 `arrow.left.arrow.right`；避开 `arrow.clockwise`（重发已用）与 `arrow.uturn.*`（append 模式撤销/重做已用）；append 用 `text.append`（字面"追加文本"）。
+- 新增本地化 key（en + zh-Hans）：`record.transcriptMode.switchHint`（accessibility hint，`%@` = 目标模式名）。
+- 验证：`scripts/test_unit.sh` 146 tests 全过；`scripts/test_ui_smoke.sh` 3 tests 全过（含 Record 屏渲染）。空态截图确认模式图标常驻，录音态确认禁用降色。注意：需先清 `.voiceflow/DerivedData` 才跑通——旧缓存残留一份 `VoiceFlowKit_*_PackageProduct.framework`，与新的 `VoiceFlowKit.framework` 同 identifier 导致模拟器安装失败（环境问题，非代码）。
+- 二轮（deepseek code + privacy 评审后）采纳的修正：自定义动作失败行随空态淡出（保持改动前观感，避免 error 停在空页面）；模式改用 `accessibilityValue`（label 固定为「转写模式」，value = 当前模式），禁用态不播报切换 hint。评审结论：无 blocker / major，隐私无不可公开内容。
+- 三轮（用户真机测试反馈）采纳的修正：**移除切换时的瞬时文案**。原实现 tap 后在工具条第二行插一条 ~1.6s 的文案；用户实测反馈"点一下图标往上挪、下面冒出一行模式名，连点几次像是没生效/有 bug"。排查确认逻辑本身正确（UI 测试单 tap 翻转 Replace→Append→Replace 无异常，根因是文案行插入/移除改变工具条高度，把图标顶得上下移动，叠加 1.6s 存在期让连点反馈读起来不一致）。修法：直接去掉文案（图标翻转 + append 琥珀色已足够），工具条不再有第二行、布局稳定。新增 UI 回归测试 `testTranscriptModeToolbarToggleSwitchesMode`（进 smoke 套件），断言 tap 后 accessibilityValue 按 Replace↔Append 翻转。
+- 四轮（用户真机再次反馈）：确认"工具栏没有 status，点了不知道是啥"。按用户建议把确认放进**已有的计时器下方状态行**：tap 后显示约 2s 的 toast（`record.transcriptMode.toast` =「Switched to <mode> mode」/「已切换到<模式>模式」，`%@` = 当前模式名），随后自动回落到常态（Ready / 已复制等）。放状态行而非工具条，工具栏行仍不位移；toast 由 `RecordView.statusTextKey` 在 clipboard 之前插入，且仅在 `recordingStatus == .idle || .ready` 时生效，不遮挡录音/转写/发送/保存等活跃状态（否则点完模式后 2s 内按 Record 会盖住 Listening）。UI 测试补 toast 断言。
+- 待用户真机确认：空页面只有模式图标时会悬浮在工具条偏中位置（隐藏的清除/复制仍占布局），观感是否可接受。
+
 ### 2026-09-29 (UI 测试卡死排查 + simulator preflight)
 
 - 现象：UI 测试单次 10+ 分钟无结果。日志签名：`Restarting after unexpected exit, crash, or test timeout` + `Failure collecting diagnostics from simulator: Timed out after 600.0 seconds`。

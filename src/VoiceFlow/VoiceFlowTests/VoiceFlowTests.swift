@@ -1704,11 +1704,12 @@ struct VoiceFlowTests {
         let skippedClipboardDiagnostics = InMemoryRecordingDiagnostics()
         let skippedClipboardState = AppState(
             keychainStore: InMemoryKeychainStore(),
+            clipboardWriter: MockClipboardWriter(),
             diagnostics: skippedClipboardDiagnostics
         )
         skippedClipboardState.copyTranscript()
 
-        #expect(skippedClipboardDiagnostics.events.map(\.name).contains("clipboard_copy_skipped"))
+        #expect(skippedClipboardDiagnostics.events.map(\.name).contains("clipboard_copy_succeeded"))
 
         let failedClipboardDiagnostics = InMemoryRecordingDiagnostics()
         let failedClipboardState = AppState(
@@ -1852,6 +1853,25 @@ struct VoiceFlowTests {
     }
 
     // MARK: - Custom Action
+
+    @Test func emptyToolbarActionsCopyEmptyAndKeepHistoryAndSkipCustomRequest() async throws {
+        let (state, client, clipboard) = makeCustomActionState()
+        state.transcriptHistory.add("previous text")
+        try clipboard.write("previous clipboard")
+
+        state.copyTranscript()
+        #expect(clipboard.writtenText == "")
+        #expect(state.lastClipboardStatusKey == "record.clipboard.copied")
+
+        state.clearTranscriptToHistory()
+        state.runCustomAction()
+        #expect(state.transcript == "")
+        #expect(state.transcriptHistory.entries.map(\.text) == ["previous text"])
+        #expect(state.customActionState == .idle)
+        #expect(state.customActionTask == nil)
+        #expect(client.lastTranscript == nil)
+        #expect(clipboard.writeCount == 2)
+    }
 
     private func makeCustomActionState(
         result: Result<String, Error> = .success("polished text"),

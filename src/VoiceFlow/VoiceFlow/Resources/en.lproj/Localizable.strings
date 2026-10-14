@@ -13,6 +13,8 @@
 "record.transcriptMode.title" = "Transcript Mode";
 "record.transcriptMode.replace" = "Replace";
 "record.transcriptMode.append" = "Append";
+"record.transcriptMode.switchHint" = "Switch to %@";
+"record.transcriptMode.toast" = "Switched to %@ mode";
 "record.undo" = "Undo";
 "record.redo" = "Redo";
 "record.clear" = "Clear Transcript";
@@ -44,6 +46,12 @@
 "record.signal.noSignalLive" = "No audio input detected. Make sure your microphone is allowed, or wait for the waveform to move before speaking.";
 "record.signal.shortRecording" = "Recording was too short. The transcript may not be accurate.";
 "record.clipboard.copied" = "Copied to clipboard.";
+"record.clipboard.emptyCopied" = "Copied empty text to clipboard.";
+"record.clear.empty" = "Nothing to clear.";
+"record.clear.cleared" = "Transcript cleared.";
+"record.customAction.empty" = "No text to process.";
+"record.customAction.running" = "Running %@…";
+"record.customAction.cancelled" = "Action cancelled.";
 "record.clipboard.failed" = "Could not copy to clipboard.";
 "record.openCode.idle" = "OpenCode ready";
 "record.openCode.sending" = "Sending to OpenCode…";

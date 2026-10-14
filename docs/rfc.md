@@ -302,7 +302,7 @@ ready -> (start again) -> requestingPermission -> ...
 
 **状态**（`AppState`，全部内存态）：
 
-- `transcriptMode`（`.replace` 默认 / `.append`）：session 级，不落 UserDefaults；⋯ 菜单切换，`canChangeTranscriptMode` 仅在 idle/ready 且 Custom Action 未运行时为真。
+- `transcriptMode`（`.replace` 默认 / `.append`）：session 级，不落 UserDefaults；转写区工具条的模式开关切换，`canChangeTranscriptMode` 仅在 idle/ready 且 Custom Action 未运行时为真。
 - `activeTranscriptMode`：按 Start（或按 resend）时捕获，录音中切换不影响本次合并。
 - `composeBase`：块在飞时冻结的基座。replace 恒为空；append 新录音 = 整个文档，append 重发 = 文档去掉最后一段（`lastChunkLength` 边界；边界丢失时退化为末尾追加）。
 - `chunkInFlight`：块在飞标记。`applyStreamedTranscript` 以此为前置（结算后的陈旧帧一律忽略）。
@@ -322,11 +322,19 @@ ready -> (start again) -> requestingPermission -> ...
 
 **垃圾桶按钮**：`clearTranscriptToHistory()` = `transcriptHistory.add(transcript)` + 清空，`canClearTranscript`（非空 + idle/ready + 无 Custom Action + 无在飞块）。空视图恢复规则：transcript 为空且历史非空时，左箭头恢复 `currentEntry`（游标所在条目）而非继续后退；手动全选删除同样适用。`TranscriptHistory.add` 存**原文**（trim 只用于空判断与去重）：垃圾桶把历史变成撤销目标，恢复必须逐字节一致（含末尾换行）。
 
-**UI 入口**：⋯ 菜单顶部「Transcript Mode / 转写模式」Section，内为 segmented Picker（Replace | Append，选中段高亮；录音中/转写中禁用，与策略锁定一致）。用户实测反馈后从 checkmark 双行改为 segmented——两行打勾需要比对才能读出当前模式，segmented 当前模式一眼可见；主屏不放常驻模式标签（session 级、切换低频，保持 Record 屏干净）。左右箭头随模式变图标与标签：append = `arrow.uturn.backward/forward` + Undo / Redo（文档撤销/重做框架），replace = `chevron.left/right` + History；accessibility identifier 保持 `record.historyPreviousButton` / `record.historyNextButton` 不变（UI test 引用）。工具条 Copy 左边 trash 幽灵按钮。本地化 key：`record.transcriptMode.title/.replace/.append`、`record.undo/.redo`、`record.clear`（en + zh-Hans）。
+**UI 入口**：转写区工具条右侧、清除/复制左侧的常驻模式开关（`RecordView.transcriptModeButton`，identifier `record.transcriptModeButton`）。单图标显示当前模式：replace = `arrow.left.arrow.right`（`text.secondary`），append = `text.append`（accent 琥珀，非默认态高亮）；tap 即刻翻转图标（图标变化 + append 态琥珀色即反馈），并在计时器下方**既有状态行**显示约 2s 的 toast 后自动回落：`record.transcriptMode.toast`（`%@` = 当前模式名）= 「Switched to <mode> mode」/「已切换到<模式>模式」。toast 由 `RecordView.statusTextKey` 在状态链的 clipboard 之前插入，且仅在 `recordingStatus == .idle || .ready` 时生效，不遮挡录音/转写/发送/保存等活跃状态，也不改变工具条高度（工具条不再有任何瞬时行）。`canChangeTranscriptMode` 同时控制动作与禁用样式（录音/转写中或 Custom Action 运行时禁用、降为 `text.tertiary` + 0.6 opacity）。工具条的自定义动作/清除/复制在文本为空时淡出（opacity 0 + `allowsHitTesting(false)`），自定义动作失败行随之淡出（保持改动前的观感），但模式开关**不参与淡出**——它是模式指示而非文档动作，空页面也要能读到当前模式（原挂在整条 VStack 上的 opacity/hitTesting 因此下放到三个文档动作各自）。（2026-10-13 从 ⋯ 菜单的 segmented Picker 迁到工具条常驻图标，原 segmented 见 git 历史。）左右箭头随模式变图标与标签：append = `arrow.uturn.backward/forward` + Undo / Redo（文档撤销/重做框架），replace = `chevron.left/right` + History；accessibility identifier 保持 `record.historyPreviousButton` / `record.historyNextButton` 不变（UI test 引用）。工具条 Copy 左边 trash 幽灵按钮。本地化 key：`record.transcriptMode.title/.replace/.append`、新增 `record.transcriptMode.switchHint`（accessibility hint，`%@` = 目标模式名）与 `record.transcriptMode.toast`（状态行 toast，`%@` = 当前模式名）、`record.undo/.redo`、`record.clear`（en + zh-Hans）。
 
-**测试**：`src/VoiceFlow/VoiceFlowTests/TranscriptModeTests.swift` 覆盖 compose 分隔规则、模式默认与 session 语义、Start 锁定、全链路 append/replace 合并、流式快照只动块区、陈旧帧忽略、失败 settle（有/无可见 partial）、resend 替换尾段/失败恢复/边界丢失退化、垃圾桶 + 空视图恢复。
+**测试**：`src/VoiceFlow/VoiceFlowTests/TranscriptModeTests.swift` 覆盖 compose 分隔规则、模式默认与 session 语义、Start 锁定、全链路 append/replace 合并、流式快照只动块区、陈旧帧忽略、失败 settle（有/无可见 partial）、resend 替换尾段/失败恢复/边界丢失退化、垃圾桶 + 空视图恢复。UI 侧由 `VoiceFlowUITests.testTranscriptModeToolbarToggleSwitchesMode`（smoke 套件）覆盖工具条开关 tap 翻转。
 
 ## 录音诊断
+
+### 工具条空文本操作（2026-10-13 修订）
+
+此节取代上述 UI 入口段中的空文本淡出规则。四个按钮常驻，`RecordView` 不再把按钮 opacity/hitTesting 绑定到 `canCopyTranscript`。`canCopyTranscript` 仍用作非空内容判断；`copyTranscript()` 不再以它为 guard，明确复制空字符串。`canClearTranscript` 仍保护非空历史归档；UI 的 clear 命中区在 settled、无在飞块时可用，空文本调用原清空方法是 no-op，不改变历史。Polish 的 UI 在空文本、settled 时允许点击，直接给出 no-op 反馈，不进入 `runCustomAction()`；有文本时仍遵守 `canRunCustomAction`。
+
+原模式 toast 状态复用为 `toolbarFeedbackText` / `toolbarFeedbackTask`：模式、复制、清除、空 Polish、取消共享两秒状态行提示，连续点击取消旧定时器。自定义动作的 running/failed 从 AppState 派生，避免瞬时任务在动作完成后继续显示 running。失败提示也统一放状态行，不再在工具条下增一行重复错误，因此工具条始终只有一行。清空非空文档时一并清除已失去上下文的自定义动作失败提示。
+
+验证：单测确认空复制覆盖旧剪贴板、空删除保留历史、空 Polish 不建 task/请求；UI 测试确认无 token 的空页面四按钮可见可点、各提示正确、按钮 frame 不变。
 
 `RecordingDiagnostics`（OSLog 或可注入 mock）在 token、权限、录音启停、音频大小、转写、剪贴板、OpenCode、deep link 等节点记安全摘要。单元测试断言不含 token/transcript。
 

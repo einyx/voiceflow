@@ -5,10 +5,8 @@ import Foundation
 /// queue of past transcripts that the user can step through.
 extension AppState {
     func copyTranscript() {
-        guard canCopyTranscript else {
-            recordDiagnostic("clipboard_copy_skipped", metadata: ["hasTranscript": "false"])
-            return
-        }
+        // Copy is explicit even on an empty page: it clears the clipboard
+        // rather than silently leaving an older transcript there.
         do {
             try clipboardWriter.write(transcript)
             recordDiagnostic("clipboard_copy_succeeded", metadata: ["characterCount": "\(transcript.count)"])

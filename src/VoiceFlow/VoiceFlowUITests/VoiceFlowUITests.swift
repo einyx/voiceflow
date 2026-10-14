@@ -223,6 +223,55 @@ final class VoiceFlowUITests: XCTestCase {
         XCTAssertTrue(waitForRecordingState(.ready, in: app, timeout: 15))
     }
 
+    func testTranscriptModeToolbarToggleSwitchesMode() throws {
+        let app = launchVoiceFlowApp(
+            language: "en",
+            locale: "en_US",
+            extraArguments: ["-uiTestMode", "-uiTestSavedToken"]
+        )
+        let mode = app.buttons["record.transcriptModeButton"]
+        XCTAssertTrue(mode.waitForExistence(timeout: VoiceFlowUITestSuite.defaultTimeout))
+
+        XCTAssertEqual(mode.value as? String, "Replace")
+        let initialFrame = mode.frame
+        mode.tap()
+        // The status line confirms the switch as a transient toast.
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"],
+                                   containing: "Switched to Append mode"))
+        XCTAssertEqual(mode.value as? String, "Append")
+        XCTAssertEqual(mode.frame, initialFrame)
+        mode.tap()
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"],
+                                   containing: "Switched to Replace mode"))
+        XCTAssertEqual(mode.value as? String, "Replace")
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"], containing: "Ready", timeout: 5))
+        XCTAssertEqual(mode.frame, initialFrame)
+    }
+
+    func testEmptyTranscriptToolbarStaysVisibleAndConfirmsActions() throws {
+        // Empty Polish is a no-op even without a saved token.
+        let app = launchVoiceFlowApp(language: "en", locale: "en_US")
+        let polish = app.buttons["record.customActionButton"]
+        let copy = app.buttons["record.copyButton"]
+        let clear = app.buttons["record.clearTranscriptButton"]
+        let mode = app.buttons["record.transcriptModeButton"]
+        let status = app.staticTexts["record.statusText"]
+        for button in [polish, copy, clear, mode] {
+            XCTAssertTrue(button.exists)
+            XCTAssertTrue(button.isEnabled)
+        }
+        let frames = [polish.frame, copy.frame, clear.frame, mode.frame]
+        copy.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "Copied empty text to clipboard."))
+        clear.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "Nothing to clear."))
+        polish.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "No text to process."))
+        XCTAssertTrue(app.buttons["record.startButton"].isEnabled)
+        XCTAssertEqual([polish.frame, copy.frame, clear.frame, mode.frame], frames)
+        XCTAssertTrue(waitForLabel(of: status, containing: "Copied to clipboard.", timeout: 5))
+    }
+
     func testDeepLinkRecordStartsMockRecordingFlow() throws {
         let app = launchVoiceFlowApp(
             language: "en",

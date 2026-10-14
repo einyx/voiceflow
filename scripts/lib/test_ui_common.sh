@@ -10,10 +10,14 @@ voiceflow_test_ui_only_testing_args() {
         "VoiceFlowUITests/VoiceFlowUITests/testEnglishAppShell"
         "VoiceFlowUITests/VoiceFlowUITests/testMockStreamingRecordingUpdatesTranscript"
         "VoiceFlowUITests/VoiceFlowUITests/testTokenCanBeSavedReplacedAndCleared"
+        "VoiceFlowUITests/VoiceFlowUITests/testTranscriptModeToolbarToggleSwitchesMode"
+        "VoiceFlowUITests/VoiceFlowUITests/testEmptyTranscriptToolbarStaysVisibleAndConfirmsActions"
       )
       ;;
     full)
       tests=(
+        "VoiceFlowUITests/VoiceFlowUITests/testTranscriptModeToolbarToggleSwitchesMode"
+        "VoiceFlowUITests/VoiceFlowUITests/testEmptyTranscriptToolbarStaysVisibleAndConfirmsActions"
         "VoiceFlowUITests/VoiceFlowUITests/testChineseAppShell"
         "VoiceFlowUITests/VoiceFlowUITests/testDeepLinkRecordStartsMockRecordingFlow"
         "VoiceFlowUITests/VoiceFlowUITests/testEnglishAppShell"
