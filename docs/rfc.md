@@ -328,6 +328,14 @@ ready -> (start again) -> requestingPermission -> ...
 
 ## 录音诊断
 
+### 工具条空文本操作（2026-10-13 修订）
+
+此节取代上述 UI 入口段中的空文本淡出规则。四个按钮常驻，`RecordView` 不再把按钮 opacity/hitTesting 绑定到 `canCopyTranscript`。`canCopyTranscript` 仍用作非空内容判断；`copyTranscript()` 不再以它为 guard，明确复制空字符串。`canClearTranscript` 仍保护非空历史归档；UI 的 clear 命中区在 settled、无在飞块时可用，空文本调用原清空方法是 no-op，不改变历史。Polish 的 UI 在空文本、settled 时允许点击，直接给出 no-op 反馈，不进入 `runCustomAction()`；有文本时仍遵守 `canRunCustomAction`。
+
+原模式 toast 状态复用为 `toolbarFeedbackText` / `toolbarFeedbackTask`：模式、复制、清除、空 Polish、取消共享两秒状态行提示，连续点击取消旧定时器。自定义动作的 running/failed 从 AppState 派生，避免瞬时任务在动作完成后继续显示 running。失败提示也统一放状态行，不再在工具条下增一行重复错误，因此工具条始终只有一行。清空非空文档时一并清除已失去上下文的自定义动作失败提示。
+
+验证：单测确认空复制覆盖旧剪贴板、空删除保留历史、空 Polish 不建 task/请求；UI 测试确认无 token 的空页面四按钮可见可点、各提示正确、按钮 frame 不变。
+
 `RecordingDiagnostics`（OSLog 或可注入 mock）在 token、权限、录音启停、音频大小、转写、剪贴板、OpenCode、deep link 等节点记安全摘要。单元测试断言不含 token/transcript。
 
 ## 录音防熄屏

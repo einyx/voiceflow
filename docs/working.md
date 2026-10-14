@@ -20,6 +20,12 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 ## Changelog
 
+### 2026-10-13 (工具条全部常驻与空文本反馈)
+
+- 按用户真机反馈移除空页面上的按钮淡出：Polish、模式、清除、复制常驻。空复制写空字符串；空删除保持历史不动；空 Polish 在 view 层返回并显示提示，不读 token、不创建请求。
+- 模式 toast 泛化为工具条反馈，全部复用已有状态行的两秒提示；自定义动作运行/失败状态由 AppState 派生，取消有反馈，清空文档后清理旧动作错误。
+- 验证：147 个单测通过，新增空操作测试覆盖剪贴板与历史/请求；空工具条 UI 测试通过（完整含增量构建约 25s，测试运行约 10s）；模式切换 UI 回归通过（复用构建，运行约 11s）。各按钮 frame 不变。无真实网络调用。
+
 ### 2026-10-13 (状态行 toast 验收与定向 UI 测试提速)
 
 - 清理接手时的 `MARKER-DIRECT` / `MARKER-PLS` 诊断文本、按钮 accessibilityValue 临时改动和测试全树扫描。恢复双语状态行 toast，显示两秒；连续切换重置定时器，页面离开时取消。toast 覆盖旧的复制/保存结果提示，但不盖住录音、转写或 OpenCode 发送过程。

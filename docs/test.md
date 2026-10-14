@@ -22,7 +22,7 @@
 
 | 脚本 | 范围 | 典型耗时（本机 pinned simulator） |
 |------|------|----------------------------------|
-| `./scripts/test_ui_smoke.sh` | 4 条关键 UX：英文 shell、mock 流式录音+转写、token 掩码、转写模式切换 | 取决于测试启动开销 |
+| `./scripts/test_ui_smoke.sh` | 5 条关键 UX：英文 shell、mock 流式录音+转写、token 掩码、转写模式切换、空文本工具条 | 取决于测试启动开销 |
 | `./scripts/test_ui_focused.sh [方法名]` | 默认只测转写模式：增量编译成功后运行明确的 `.xctestrun`，不做失败 sysdiagnose | 本次实测编译 8s + 测试 15s |
 | `./scripts/test_ui_full.sh` | 11 条功能 UI（无 perf、无 Launch 截图） | ~200s |
 | `./scripts/test_ui_perf.sh` | `testLaunchPerformance` + LaunchTests 截图 | ~30s |

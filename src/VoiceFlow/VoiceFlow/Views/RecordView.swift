@@ -13,8 +13,8 @@ struct RecordView: View {
     @State private var copyFeedbackTask: Task<Void, Never>?
     @State private var showCopyCheckmark = false
     @State private var isEditingTranscript = false
-    @State private var modeToastTask: Task<Void, Never>?
-    @State private var modeToastText: String?
+    @State private var toolbarFeedbackTask: Task<Void, Never>?
+    @State private var toolbarFeedbackText: String?
 
     var body: some View {
         ZStack {
@@ -65,9 +65,9 @@ struct RecordView: View {
         // this the keyboard had no way to go down on the Record screen.
         .dismissKeyboardOnTapOutsideTextInputs()
         .onDisappear {
-            modeToastTask?.cancel()
-            modeToastTask = nil
-            modeToastText = nil
+            toolbarFeedbackTask?.cancel()
+            toolbarFeedbackTask = nil
+            toolbarFeedbackText = nil
         }
         #if os(visionOS)
         .frame(minWidth: 400, idealWidth: 600, maxWidth: 800,
@@ -171,37 +171,16 @@ struct RecordView: View {
     /// mode toggle when append is active, so nothing competes with the Record
     /// capsule below.
     ///
-    /// The document actions only make sense with a transcript on screen, so
-    /// they fade out on an empty page. The mode toggle is a mode indicator,
-    /// not a document action: it stays visible so the current mode is always
-    /// readable before recording, even on a fresh, empty transcript.
+    /// All actions stay visible on an empty page to keep their positions
+    /// stable. Empty copy clears the clipboard; clear/custom action are
+    /// harmless no-ops with confirmation in the existing status line.
     private var transcriptToolbar: some View {
-        let showDocumentActions = appState.canCopyTranscript
-        return VStack(spacing: DesignTokens.Spacing.xs) {
-            HStack {
-                customActionButton
-                    .opacity(showDocumentActions ? 1 : 0)
-                    .allowsHitTesting(showDocumentActions)
-                Spacer()
-                transcriptModeButton
-                trashButton
-                    .opacity(showDocumentActions ? 1 : 0)
-                    .allowsHitTesting(showDocumentActions)
-                copyButton
-                    .opacity(showDocumentActions ? 1 : 0)
-                    .allowsHitTesting(showDocumentActions)
-            }
-            if case .failed(let messageKey) = appState.customActionState {
-                Text(localized(messageKey))
-                    .font(DesignTokens.Typography.captionSub)
-                    .foregroundStyle(DesignTokens.Palette.textSecondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    // The custom-action result is a document-action status, so
-                    // it fades with the other document actions on an empty
-                    // page (same as before the toolbar's fade was scoped down).
-                    .opacity(showDocumentActions ? 1 : 0)
-                    .accessibilityIdentifier("record.customActionError")
-            }
+        HStack {
+            customActionButton
+            Spacer()
+            transcriptModeButton
+            trashButton
+            copyButton
         }
         .padding(.horizontal, DesignTokens.Spacing.xl)
         .padding(.top, DesignTokens.Spacing.s)
@@ -216,7 +195,15 @@ struct RecordView: View {
         return Button {
             if isRunning {
                 appState.cancelCustomAction()
+                showToolbarFeedback(localized("record.customAction.cancelled"))
+            } else if !appState.canCopyTranscript {
+                showToolbarFeedback(localized("record.customAction.empty"))
             } else {
+                // A previous mode/copy toast must not delay the new action's
+                // running or error status.
+                toolbarFeedbackTask?.cancel()
+                toolbarFeedbackTask = nil
+                toolbarFeedbackText = nil
                 appState.runCustomAction()
             }
         } label: {
@@ -238,7 +225,8 @@ struct RecordView: View {
             .padding(.vertical, DesignTokens.Spacing.xs)
         }
         .buttonStyle(.plain)
-        .disabled(!appState.canRunCustomAction && !isRunning)
+        .disabled(!isRunning && !(appState.canRunCustomAction
+            || (!appState.canCopyTranscript && appState.canNavigateTranscriptHistory)))
         .accessibilityIdentifier("record.customActionButton")
         .accessibilityLabel(Text(isRunning ? localized("record.customAction.cancel") : actionName))
     }
@@ -247,6 +235,9 @@ struct RecordView: View {
         Button {
             appState.copyTranscript()
             let didCopy = appState.lastClipboardStatusKey == "record.clipboard.copied"
+            showToolbarFeedback(localized(didCopy
+                ? (appState.transcript.isEmpty ? "record.clipboard.emptyCopied" : "record.clipboard.copied")
+                : "record.clipboard.failed"))
             guard didCopy else { return }
             showCopyCheckmark = true
             copyFeedbackTask?.cancel()
@@ -264,7 +255,6 @@ struct RecordView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .disabled(!appState.canCopyTranscript)
         .accessibilityIdentifier("record.copyButton")
         .accessibilityLabel(Text(localized("record.copy")))
     }
@@ -274,7 +264,10 @@ struct RecordView: View {
     /// just-archived entry, so no confirmation dialog is needed.
     private var trashButton: some View {
         Button {
+            let hadText = appState.canCopyTranscript
             appState.clearTranscriptToHistory()
+            if hadText { appState.clearCustomActionFailure() }
+            showToolbarFeedback(localized(hadText ? "record.clear.cleared" : "record.clear.empty"))
         } label: {
             Image(systemName: "trash")
                 .font(.system(size: DesignTokens.Sizing.ghostIcon, weight: .regular))
@@ -283,7 +276,7 @@ struct RecordView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .disabled(!appState.canClearTranscript)
+        .disabled(!appState.canNavigateTranscriptHistory || appState.chunkInFlight)
         .accessibilityIdentifier("record.clearTranscriptButton")
         .accessibilityLabel(Text(localized("record.clear")))
     }
@@ -429,12 +422,16 @@ struct RecordView: View {
         let modeKey = appState.transcriptMode == .append
             ? "record.transcriptMode.append"
             : "record.transcriptMode.replace"
-        modeToastText = String(format: localized("record.transcriptMode.toast"), localized(modeKey))
-        modeToastTask?.cancel()
-        modeToastTask = Task { @MainActor in
+        showToolbarFeedback(String(format: localized("record.transcriptMode.toast"), localized(modeKey)))
+    }
+
+    private func showToolbarFeedback(_ text: String) {
+        toolbarFeedbackText = text
+        toolbarFeedbackTask?.cancel()
+        toolbarFeedbackTask = Task { @MainActor in
             try? await Task.sleep(for: .seconds(2))
             if !Task.isCancelled {
-                modeToastText = nil
+                toolbarFeedbackText = nil
             }
         }
     }
@@ -492,12 +489,19 @@ struct RecordView: View {
     }
 
     private var statusTextKey: LocalizedStringKey {
-        // Confirm mode changes even when an older clipboard/save status is
+        // Confirm toolbar actions even when an older clipboard/save status is
         // still displayed. Active recording, transcription and sending win.
-        if let modeToastText,
+        if let toolbarFeedbackText,
            (appState.recordingStatus == .idle || appState.recordingStatus == .ready),
            appState.openCodeSendStatus != .sending {
-            return LocalizedStringKey(modeToastText)
+            return LocalizedStringKey(toolbarFeedbackText)
+        }
+        if appState.customActionState.isRunning {
+            return LocalizedStringKey(String(format: localized("record.customAction.running"), appState.customActionDisplayLabel))
+        }
+        if case .failed(let messageKey) = appState.customActionState,
+           appState.recordingStatus == .idle || appState.recordingStatus == .ready {
+            return LocalizedStringKey(messageKey)
         }
         if appState.openCodeSendStatus != .idle {
             return LocalizedStringKey(appState.openCodeSendStatus.localizedKey)

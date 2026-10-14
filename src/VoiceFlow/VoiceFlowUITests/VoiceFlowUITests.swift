@@ -248,6 +248,30 @@ final class VoiceFlowUITests: XCTestCase {
         XCTAssertEqual(mode.frame, initialFrame)
     }
 
+    func testEmptyTranscriptToolbarStaysVisibleAndConfirmsActions() throws {
+        // Empty Polish is a no-op even without a saved token.
+        let app = launchVoiceFlowApp(language: "en", locale: "en_US")
+        let polish = app.buttons["record.customActionButton"]
+        let copy = app.buttons["record.copyButton"]
+        let clear = app.buttons["record.clearTranscriptButton"]
+        let mode = app.buttons["record.transcriptModeButton"]
+        let status = app.staticTexts["record.statusText"]
+        for button in [polish, copy, clear, mode] {
+            XCTAssertTrue(button.exists)
+            XCTAssertTrue(button.isEnabled)
+        }
+        let frames = [polish.frame, copy.frame, clear.frame, mode.frame]
+        copy.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "Copied empty text to clipboard."))
+        clear.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "Nothing to clear."))
+        polish.tap()
+        XCTAssertTrue(waitForLabel(of: status, containing: "No text to process."))
+        XCTAssertTrue(app.buttons["record.startButton"].isEnabled)
+        XCTAssertEqual([polish.frame, copy.frame, clear.frame, mode.frame], frames)
+        XCTAssertTrue(waitForLabel(of: status, containing: "Copied to clipboard.", timeout: 5))
+    }
+
     func testDeepLinkRecordStartsMockRecordingFlow() throws {
         let app = launchVoiceFlowApp(
             language: "en",

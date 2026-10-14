@@ -46,6 +46,12 @@
 "record.signal.noSignalLive" = "未检测到声音输入。请确认麦克风已授权，或等波形跳动后再开始说话。";
 "record.signal.shortRecording" = "录音时长过短，转写结果可能不准确。";
 "record.clipboard.copied" = "已复制到剪贴板。";
+"record.clipboard.emptyCopied" = "已复制空文本到剪贴板。";
+"record.clear.empty" = "没有可清空的文本。";
+"record.clear.cleared" = "已清空转写文本。";
+"record.customAction.empty" = "没有可处理的文本。";
+"record.customAction.running" = "正在运行%@…";
+"record.customAction.cancelled" = "已取消动作。";
 "record.clipboard.failed" = "无法复制到剪贴板。";
 "record.openCode.idle" = "OpenCode 可用";
 "record.openCode.sending" = "正在发送到 OpenCode…";
