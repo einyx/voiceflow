@@ -22,7 +22,8 @@
 
 | 脚本 | 范围 | 典型耗时（本机 pinned simulator） |
 |------|------|----------------------------------|
-| `./scripts/test_ui_smoke.sh` | 3 条关键 UX：英文 shell、mock 流式录音+转写、token 掩码 | ~50s |
+| `./scripts/test_ui_smoke.sh` | 4 条关键 UX：英文 shell、mock 流式录音+转写、token 掩码、转写模式切换 | 取决于测试启动开销 |
+| `./scripts/test_ui_focused.sh [方法名]` | 默认只测转写模式：增量编译成功后运行明确的 `.xctestrun`，不做失败 sysdiagnose | 本次实测编译 8s + 测试 15s |
 | `./scripts/test_ui_full.sh` | 11 条功能 UI（无 perf、无 Launch 截图） | ~200s |
 | `./scripts/test_ui_perf.sh` | `testLaunchPerformance` + LaunchTests 截图 | ~30s |
 | `./scripts/test_ui.sh` | 等同 `test_ui_full.sh` | ~200s |
@@ -86,6 +87,10 @@ time xcrun simctl io <UDID> screenshot /tmp/x.png   # >5s = simulator 卡了
 4. 看到 600s 诊断超时**直接 kill，不要等**
 
 **首跑预热**（新 checkout / 换 Xcode / 换 SDK 后的一次性成本：SPM 包重解析 + 冷编译）：先 `VOICEFLOW_TEST_REBUILD=1 ./scripts/test_ui_smoke.sh` 建一次，之后 `test-without-building` 复用构建，稳态 smoke ~50s / full ~200s。
+
+局部 UI 迭代用 `./scripts/test_ui_focused.sh testTranscriptModeToolbarToggleSwitchesMode`。默认先做增量 `build-for-testing`，成功才测试；源码未改时可用 `VOICEFLOW_TEST_REBUILD=0` 跳过编译。测试直接绑定生成的 `.xctestrun` 和同一 DerivedData，关闭失败后的完整诊断采集（`-collect-test-diagnostics never`），仍保留测试日志与 xcresult。无需每轮清缓存、卸载 App 或跑完整 smoke。
+
+两秒 toast 的断言要在点击后立即检查 label。先 `waitForExistence` 再 `XCTNSPredicateExpectation` 可能花约两秒才读第一次 label，此时提示已经消失；不得因此判定业务逻辑失败。`waitForLabel` 使用即时检查和短间隔轮询，测试同时验证提示、恢复 Ready 和按钮 frame 不变。
 
 `.voiceflow/` 是本地状态目录，已 gitignore，不会进仓库。
 

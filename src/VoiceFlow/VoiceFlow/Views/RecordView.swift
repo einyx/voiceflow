@@ -13,6 +13,8 @@ struct RecordView: View {
     @State private var copyFeedbackTask: Task<Void, Never>?
     @State private var showCopyCheckmark = false
     @State private var isEditingTranscript = false
+    @State private var modeToastTask: Task<Void, Never>?
+    @State private var modeToastText: String?
 
     var body: some View {
         ZStack {
@@ -62,6 +64,11 @@ struct RecordView: View {
         // keyboard (the editor keeps focus for taps inside it). Without
         // this the keyboard had no way to go down on the Record screen.
         .dismissKeyboardOnTapOutsideTextInputs()
+        .onDisappear {
+            modeToastTask?.cancel()
+            modeToastTask = nil
+            modeToastText = nil
+        }
         #if os(visionOS)
         .frame(minWidth: 400, idealWidth: 600, maxWidth: 800,
                minHeight: 400, idealHeight: 1000, maxHeight: 1500)
@@ -411,6 +418,25 @@ struct RecordView: View {
     private func toggleTranscriptMode() {
         guard appState.canChangeTranscriptMode else { return }
         appState.transcriptMode = appState.transcriptMode == .replace ? .append : .replace
+        showModeToast()
+    }
+
+    /// Confirm the newly selected mode as a ~2s toast in the status line
+    /// (under the timer), then let the status line fall back to its normal
+    /// content. Lives in the existing status text rather than the toolbar,
+    /// so the toolbar row never shifts when the confirmation appears.
+    private func showModeToast() {
+        let modeKey = appState.transcriptMode == .append
+            ? "record.transcriptMode.append"
+            : "record.transcriptMode.replace"
+        modeToastText = String(format: localized("record.transcriptMode.toast"), localized(modeKey))
+        modeToastTask?.cancel()
+        modeToastTask = Task { @MainActor in
+            try? await Task.sleep(for: .seconds(2))
+            if !Task.isCancelled {
+                modeToastText = nil
+            }
+        }
     }
 
     // MARK: - Transcript history navigation (mode-aware)
@@ -466,6 +492,13 @@ struct RecordView: View {
     }
 
     private var statusTextKey: LocalizedStringKey {
+        // Confirm mode changes even when an older clipboard/save status is
+        // still displayed. Active recording, transcription and sending win.
+        if let modeToastText,
+           (appState.recordingStatus == .idle || appState.recordingStatus == .ready),
+           appState.openCodeSendStatus != .sending {
+            return LocalizedStringKey(modeToastText)
+        }
         if appState.openCodeSendStatus != .idle {
             return LocalizedStringKey(appState.openCodeSendStatus.localizedKey)
         }

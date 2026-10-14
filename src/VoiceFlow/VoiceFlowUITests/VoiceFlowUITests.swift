@@ -232,11 +232,20 @@ final class VoiceFlowUITests: XCTestCase {
         let mode = app.buttons["record.transcriptModeButton"]
         XCTAssertTrue(mode.waitForExistence(timeout: VoiceFlowUITestSuite.defaultTimeout))
 
-        XCTAssertTrue(waitForValue(of: mode, containing: "Replace"))
+        XCTAssertEqual(mode.value as? String, "Replace")
+        let initialFrame = mode.frame
         mode.tap()
-        XCTAssertTrue(waitForValue(of: mode, containing: "Append"))
+        // The status line confirms the switch as a transient toast.
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"],
+                                   containing: "Switched to Append mode"))
+        XCTAssertEqual(mode.value as? String, "Append")
+        XCTAssertEqual(mode.frame, initialFrame)
         mode.tap()
-        XCTAssertTrue(waitForValue(of: mode, containing: "Replace"))
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"],
+                                   containing: "Switched to Replace mode"))
+        XCTAssertEqual(mode.value as? String, "Replace")
+        XCTAssertTrue(waitForLabel(of: app.staticTexts["record.statusText"], containing: "Ready", timeout: 5))
+        XCTAssertEqual(mode.frame, initialFrame)
     }
 
     func testDeepLinkRecordStartsMockRecordingFlow() throws {

@@ -14,6 +14,7 @@
 "record.transcriptMode.replace" = "Replace";
 "record.transcriptMode.append" = "Append";
 "record.transcriptMode.switchHint" = "Switch to %@";
+"record.transcriptMode.toast" = "Switched to %@ mode";
 "record.undo" = "Undo";
 "record.redo" = "Redo";
 "record.clear" = "Clear Transcript";

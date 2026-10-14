@@ -473,7 +473,7 @@ struct StatusText: View {
 
 **可见性**：清除/复制/自定义动作在文本为空时照旧淡出；模式开关常驻，不参与淡出。空页面上 append/replace 本无差别（没有可追加的文档），但常驻让"当前处于哪种模式"在按下 Record 前始终可读，符合用户要求。
 
-**切换反馈**：不另加文案。tap 即刻翻转图标（`arrow.left.arrow.right` ↔ `text.append`），append 态再染琥珀色，图标变化本身就是反馈；accessibility label 固定为「转写模式」、value 报当前模式、hint 报「切换到 <另一模式>」。（迭代：曾在工具条第二行加过约 1.6s 的瞬时文案补发现性，真机实测它在插入/移除时把整行图标顶得上下跳，且连点时的反馈读起来像"没生效/有 bug"，遂移除。）
+**切换反馈**：tap 即刻翻转图标（`arrow.left.arrow.right` ↔ `text.append`）并在 append 态染琥珀色；同时，在计时器下方的**既有状态行**里做一条约 2s 的 toast（Replace / Append），随后自动回落到常态状态（Ready / 已复制等）。放状态行而非工具条，工具栏行因此恒定不位移；toast 仅在整个 app 处于 idle/ready 时顶替状态行，不遮挡录音/转写/发送等活跃状态。accessibility：label 固定为「转写模式」、value 报当前模式、hint 报「切换到 <另一模式>」。（迭代：曾在工具条第二行加过瞬时文案——真机实测它顶动图标且连点时有歧义，先移除，再按用户建议改到状态行做 toast。）
 
 **禁用**：录音/转写中或 Custom Action 运行时按 `canChangeTranscriptMode` 禁用，降到 `text.tertiary` + 0.6 opacity。模式在按 Start 时锁定，录音中切换只影响下一次。
 
