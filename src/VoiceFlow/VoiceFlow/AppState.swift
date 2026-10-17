@@ -291,7 +291,6 @@ final class AppState: ObservableObject {
     var capturedPCMConsumerTask: Task<Void, Never>?
     var activeTranscriptionAttemptID: UUID?
     var partialTranscriptAttemptID: UUID?
-    var userEditedTranscriptDuringStream = false
     var isTranscriptionTeardown = false
     var activeRecordingStrategy: VoiceFlowRecordingStrategy = .gptLiveTranscribe
     var lastRecordingStrategy: VoiceFlowRecordingStrategy = .gptLiveTranscribe
@@ -458,7 +457,6 @@ final class AppState: ObservableObject {
         pendingDeepLinkStartRecording = false
         transcript = ""
         transcriptHistory = TranscriptHistory()
-        userEditedTranscriptDuringStream = false
         lastClipboardStatusKey = nil
         clearStreamCaptions()
         lastSavedRecording = nil
@@ -673,7 +671,6 @@ final class AppState: ObservableObject {
             }
             preResendDocument = nil
             preResendChunkLength = nil
-            userEditedTranscriptDuringStream = false
             lastClipboardStatusKey = nil
             clearStreamCaptions()
             lastSavedRecording = nil

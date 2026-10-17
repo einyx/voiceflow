@@ -305,16 +305,12 @@ extension AppState {
         case .partialTranscript(let content):
             if recordingStatus == .recording {
                 guard activeRecordingStrategy == .gptLiveTranscribe else { return }
-                if !userEditedTranscriptDuringStream {
-                    applyStreamedTranscript(content)
-                }
+                applyStreamedTranscript(content)
                 return
             }
             guard let attemptID = activeTranscriptionAttemptID,
                   acceptsPartialTranscript(for: attemptID) else { return }
-            if !userEditedTranscriptDuringStream {
-                applyStreamedTranscript(content)
-            }
+            applyStreamedTranscript(content)
         case .phaseChanged(let phase):
             streamConnectionPhase = phase
             switch phase {

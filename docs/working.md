@@ -20,6 +20,12 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 ## Changelog
 
+### 2026-10-16 (删除废弃开关 userEditedTranscriptDuringStream)
+
+- 删除 `userEditedTranscriptDuringStream` 属性及全部赋值。该旗标从未被设为 true，检查它的分支是死代码。`handleStreamEvent` 在原有 strategy / attempt guard 通过后始终调用 `applyStreamedTranscript`。
+- 可见行为不变：GPT Realtime 录音期仍不出字，GPT Live 仍在录音中出字。测试和文档都没有把这个旗标写成现存功能，因此没有改测试，也没有改 `docs/design.md` 的编辑态章节。
+- 验证：`./scripts/test_unit.sh`，147 tests / 5 suites 通过（`** TEST EXECUTE SUCCEEDED **`）。未跑 UI suite，未改签名、build 号或 bundle id。
+
 ### 2026-10-13 (工具条全部常驻与空文本反馈)
 
 - 按用户真机反馈移除空页面上的按钮淡出：Polish、模式、清除、复制常驻。空复制写空字符串；空删除保持历史不动；空 Polish 在 view 层返回并显示提示，不读 token、不创建请求。
