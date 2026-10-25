@@ -20,6 +20,13 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 ## Changelog
 
+### 2026-10-25 (VoiceFlowKit 升级到 Swift 6 语言模式)
+
+- `Package.swift`：`VoiceFlowKit` 与 `VoiceFlowKitTests` 的 `swiftSettings` 从 `.swiftLanguageMode(.v5)` 改为 `.v6`。用 target 级 `swiftLanguageMode` 而不是把整个工程切到 Swift 6，依赖（Citadel / swift-crypto）仍按各自的 manifest 语言模式编译，不会被一起拖进 Swift 6。
+- 唯一一处源码修改：`AudioRecorderError.SessionSetupPhase` 补上 `Sendable`。Swift 6 下 `Error` 隐含 `Sendable`，所以它的关联值必须可发送；`NSError` 在当前 SDK 已经是可发送的。
+- 验证：`swift build --build-tests` clean rebuild 零 error 零 warning；`swift test` 35 tests / 6 suites 通过（`** TEST EXECUTE SUCCEEDED **`）。未跑 Xcode app target 的 UI suite，未改签名、build 号或 bundle id。
+- 决策：显式写 `.v6` 而不是删掉这条设置——显式 `.v5` 会覆盖下游工程的 `SWIFT_VERSION`，让 voiceflow 永远以 Swift 5 编译，下游（OpenCode iOS client）就拿不到 Swift 6 的并发检查。
+
 ### 2026-10-16 (删除废弃开关 userEditedTranscriptDuringStream)
 
 - 删除 `userEditedTranscriptDuringStream` 属性及全部赋值。该旗标从未被设为 true，检查它的分支是死代码。`handleStreamEvent` 在原有 strategy / attempt guard 通过后始终调用 `applyStreamedTranscript`。

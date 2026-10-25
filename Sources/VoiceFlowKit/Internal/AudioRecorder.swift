@@ -32,7 +32,7 @@ public enum AudioRecorderError: Error {
     case noActiveRecording
     case sessionSetupFailed(phase: SessionSetupPhase, underlying: NSError)
 
-    public enum SessionSetupPhase: String {
+    public enum SessionSetupPhase: String, Sendable {
         case setCategory
         case setActive
         case createRecorder
