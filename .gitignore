@@ -17,6 +17,7 @@ DerivedData/
 
 # Swift Package Manager
 .build/
+.build-ios/
 .swiftpm/
 # Ignore SPM lockfile at the repo root (we're a library; downstream xcodeprojs
 # pin versions). Allow the Xcode workspace's lockfile through — Xcode Cloud
