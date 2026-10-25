@@ -1,0 +1,179 @@
+{
+  "" : {
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit-primary.dia",
+    "emit-module-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit-primary-emit-module.dia",
+    "pch" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit-primary.swiftdeps"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/resource_bundle_accessor~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/AIBuilderClient.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderClient~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/AIBuilderTranscriptionClient.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AIBuilderTranscriptionClient~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/AudioChunkEncoder.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioChunkEncoder~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/AudioRecorder.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/AudioRecorder~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/GrokBatchTranscriptionClient.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/GrokBatchTranscriptionClient~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/RealtimeTranscriptEvent.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptEvent~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/RealtimeTranscriptionClient.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeTranscriptionClient~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/Internal/RealtimeWebSocketSender.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/RealtimeWebSocketSender~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/StreamCaption.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/StreamCaption~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowClient.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowClient~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowConfig.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowConfig~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowError.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowError~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowKit.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowKit~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowMicrophone.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowMicrophone~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowRecordingStrategy.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowRecordingStrategy~partial.swiftmodule"
+  },
+  "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/Sources/VoiceFlowKit/VoiceFlowSession.swift" : {
+    "const-values" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.swiftconstvalues",
+    "dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.d",
+    "diagnostics" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.dia",
+    "index-unit-output-path" : "/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.o",
+    "llvm-bc" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.bc",
+    "object" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.o",
+    "swift-dependencies" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession.swiftdeps",
+    "swiftmodule" : "/private/var/folders/6s/d6cbqcqj1_7cxn6npxnpmb8m0000gn/T/opencode/voiceflow/.build-ios/out/Intermediates.noindex/VoiceFlowKit.build/Debug/VoiceFlowKit-t.build/Objects-normal/arm64/VoiceFlowSession~partial.swiftmodule"
+  }
+}

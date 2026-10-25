@@ -1,0 +1,4 @@
+module VoiceFlowKit {
+header "VoiceFlowKit-Swift.h"
+export *
+}

@@ -159,7 +159,7 @@ final class AudioTapCallbackDeliveryCoordinator: @unchecked Sendable {
 }
 
 #if os(iOS) || os(visionOS)
-public final class AudioRecorder: NSObject, AudioRecording, AVAudioRecorderDelegate, @unchecked Sendable {
+public final class AudioRecorder: NSObject, AudioRecording, AVAudioRecorderDelegate {
     private var audioEngine: AVAudioEngine?
     private var recordingURL: URL?
     private var pcmBuffer = Data()
@@ -367,6 +367,14 @@ public final class AudioRecorder: NSObject, AudioRecording, AVAudioRecorderDeleg
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
     }
 }
+
+/// `AudioRecording` refines `Sendable`, but the recorder holds an
+/// `AVAudioEngine` and other non-sendable state whose isolation is
+/// provided by the audio main thread. The unchecked conformance has to
+/// be an explicit extension: spelled in the inheritance clause it does
+/// not relax the `Sendable` requirement the protocol inherits.
+extension AudioRecorder: @unchecked Sendable {}
+
 #endif
 
 /// Test-only mock. Uses `@unchecked Sendable` because instances are
