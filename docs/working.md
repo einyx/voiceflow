@@ -24,6 +24,7 @@ Side-by-side of the two implementations (OpenCode reference: `opencode_ios_clien
 
 - `Package.swift`：`VoiceFlowKit` 与 `VoiceFlowKitTests` 的 `swiftSettings` 从 `.swiftLanguageMode(.v5)` 改为 `.v6`。用 target 级 `swiftLanguageMode` 而不是把整个工程切到 Swift 6，依赖（Citadel / swift-crypto）仍按各自的 manifest 语言模式编译，不会被一起拖进 Swift 6。
 - 唯一一处源码修改：`AudioRecorderError.SessionSetupPhase` 补上 `Sendable`。Swift 6 下 `Error` 隐含 `Sendable`，所以它的关联值必须可发送；`NSError` 在当前 SDK 已经是可发送的。
+- `AudioRecorder` 显式声明 `@unchecked Sendable`。它持有 `AVAudioEngine` 等非可发送状态，隔离由音频主线程保证；不显式声明的话，被消费方工程（OpenCode iOS client）用 `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` 编译本包时，会报 “stored property of Sendable-conforming class is mutable”——而包自身的 `swift build` 不会，因为默认隔离不同。这条声明让本包在两种编译上下文下都成立。
 - 验证：`swift build --build-tests` clean rebuild 零 error 零 warning；`swift test` 35 tests / 6 suites 通过（`** TEST EXECUTE SUCCEEDED **`）。未跑 Xcode app target 的 UI suite，未改签名、build 号或 bundle id。
 - 决策：显式写 `.v6` 而不是删掉这条设置——显式 `.v5` 会覆盖下游工程的 `SWIFT_VERSION`，让 voiceflow 永远以 Swift 5 编译，下游（OpenCode iOS client）就拿不到 Swift 6 的并发检查。
 

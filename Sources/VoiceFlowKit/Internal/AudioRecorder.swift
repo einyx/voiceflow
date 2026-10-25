@@ -159,7 +159,7 @@ final class AudioTapCallbackDeliveryCoordinator: @unchecked Sendable {
 }
 
 #if os(iOS) || os(visionOS)
-public final class AudioRecorder: NSObject, AudioRecording, AVAudioRecorderDelegate {
+public final class AudioRecorder: NSObject, AudioRecording, AVAudioRecorderDelegate, @unchecked Sendable {
     private var audioEngine: AVAudioEngine?
     private var recordingURL: URL?
     private var pcmBuffer = Data()
